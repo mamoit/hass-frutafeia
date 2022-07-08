@@ -57,4 +57,16 @@ for item in soup_recolhida:
 # Saldo
 result["saldo"] = soup_menu.select(".pane-consumidor-panel .row .val")[2].text.strip()
 
+# Tamanho
+result["tamanho"] = soup_menu.select(".cesta .val")[0].text.strip()
+
+# Estado
+result["estado"] = soup_menu.select(".estado-cons .val")[0].text.strip()
+
+# Delegação
+result["delegacao"] = soup_menu.select(".delelegacao-cons .val")[0].text.strip()
+
+# Número de sócio
+result["socio"] = int(soup_menu.select(".numero-socio .val")[0].text.strip())
+
 print(json.dumps(result))
