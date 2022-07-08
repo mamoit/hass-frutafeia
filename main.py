@@ -35,7 +35,6 @@ soup_menu = BeautifulSoup(r.text, 'html.parser')
 result = {
     "nao_recolhida": [],
     "recolhida": [],
-    "saldo": None,
 }
 
 # Cesta não recolhida
@@ -55,7 +54,7 @@ for item in soup_recolhida:
     ])
 
 # Saldo
-result["saldo"] = soup_menu.select(".pane-consumidor-panel .row .val")[2].text.strip()
+result["saldo"] = float(soup_menu.select(".pane-consumidor-panel .row .val")[2].text.strip().replace("€",""))
 
 # Tamanho
 result["tamanho"] = soup_menu.select(".cesta .val")[0].text.strip()
