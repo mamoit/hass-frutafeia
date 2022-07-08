@@ -66,7 +66,7 @@ The result is something like this:
       ]
    ],
    "saldo" : 5,
-   "socio" : 0000000,
+   "socio" : 123456789,
    "tamanho" : "Cesta pequena"
 }
 ```
