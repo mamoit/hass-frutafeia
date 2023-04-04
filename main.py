@@ -5,7 +5,10 @@ import json
 email = ""
 pwd = ""
 
-r = requests.get("https://frutafeia.pt/user")
+BASE_URL="https://frutafeia.pt"
+LOGIN_URL=f"{BASE_URL}/user"
+
+r = requests.get(LOGIN_URL)
 if r.status_code != 200:
     exit(1)
 
@@ -15,7 +18,7 @@ captcha_token = soup.find("input", {"name": "captcha_token"}).attrs["value"]
 form_build_id = soup.find("input", {"name": "form_build_id"}).attrs["value"]
 
 r = requests.post(
-    "https://frutafeia.pt/user",
+    LOGIN_URL,
     data = {
         "name": email,
         "pass": pwd,
