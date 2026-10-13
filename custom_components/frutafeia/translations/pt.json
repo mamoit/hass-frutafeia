@@ -1,0 +1,37 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "username": "Email",
+          "password": "Palavra-passe"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reautenticar Frutafeia",
+        "data": {
+          "password": "Palavra-passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Nome de utilizador ou palavra-passe inválidos.",
+      "cannot_connect": "Não foi possível ligar à Frutafeia.",
+      "unknown": "Ocorreu um erro inesperado."
+    },
+    "abort": {
+      "unique_id": "A Frutafeia já está configurada.",
+      "unique_id_mismatch": "As credenciais pertencem a uma conta diferente."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opções da Frutafeia",
+        "data": {
+          "scan_interval_hours": "Intervalo de verificação (horas)"
+        }
+      }
+    }
+  }
+}
