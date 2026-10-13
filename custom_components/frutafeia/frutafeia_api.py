@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import dataclass, field
-from typing import Any
 
 import aiohttp
 from bs4 import BeautifulSoup
@@ -194,21 +193,3 @@ class FrutafeiaClient:
                 )
             )
         return items
-
-    def to_dict(self, data: FrutafeiaData) -> dict[str, Any]:
-        """Serialize dashboard data to a plain dictionary."""
-        return {
-            "saldo": data.saldo,
-            "socio": data.socio,
-            "tamanho": data.tamanho,
-            "estado": data.estado,
-            "delegacao": data.delegacao,
-            "nao_recolhida": [
-                {"product": item.product, "producer": item.producer}
-                for item in data.nao_recolhida
-            ],
-            "recolhida": [
-                {"product": item.product, "producer": item.producer}
-                for item in data.recolhida
-            ],
-        }
