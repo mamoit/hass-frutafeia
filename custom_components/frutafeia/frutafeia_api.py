@@ -48,11 +48,29 @@ class FrutafeiaClient:
         self._username = username
         self._password = password
         self._session = session
+        self._authenticated: bool = False
+        self._dashboard_url: str | None = None
 
     async def async_get_data(self) -> FrutafeiaData:
-        """Log in and return the dashboard data."""
-        captcha = await self._get_captcha()
-        return await self._login(captcha)
+        """Return the dashboard data, reusing the session when possible."""
+        if self._authenticated and self._dashboard_url is not None:
+            try:
+                html = await self._fetch_dashboard_url()
+                data = self._parse_dashboard(html)
+            except FrutafeiaError:
+                data = None
+            if data is not None:
+                return data
+            # Session expired (or the site is unreachable), log in again.
+            self._authenticated = False
+
+        html = await self._login()
+        data = self._parse_dashboard(html)
+        if data is None:
+            self._authenticated = False
+            raise FrutafeiaAuthError("Invalid username or password")
+        self._authenticated = True
+        return data
 
     async def _get_captcha(self) -> dict[str, str]:
         """Fetch the login page and extract the captcha form values."""
@@ -72,8 +90,9 @@ class FrutafeiaClient:
             values[name] = element["value"]
         return values
 
-    async def _login(self, captcha: dict[str, str]) -> FrutafeiaData:
-        """Submit the login form and parse the resulting dashboard."""
+    async def _login(self) -> str:
+        """Submit the login form and return the resulting dashboard HTML."""
+        captcha = await self._get_captcha()
         try:
             async with self._session.post(
                 LOGIN_URL,
@@ -89,20 +108,31 @@ class FrutafeiaClient:
                 },
             ) as resp:
                 resp.raise_for_status()
+                self._dashboard_url = str(resp.url)
                 html = await resp.text()
         except aiohttp.ClientError as err:
             raise FrutafeiaError(f"Unable to reach Frutafeia: {err}") from err
+        return html
 
+    async def _fetch_dashboard_url(self) -> str:
+        """Fetch the cached dashboard URL and return its HTML."""
+        try:
+            async with self._session.get(self._dashboard_url) as resp:
+                resp.raise_for_status()
+                return await resp.text()
+        except aiohttp.ClientError as err:
+            raise FrutafeiaError(f"Unable to reach Frutafeia: {err}") from err
+
+    def _parse_dashboard(self, html: str) -> FrutafeiaData | None:
+        """Parse the dashboard HTML, or return None if it is not present."""
         soup = BeautifulSoup(html, "html.parser")
 
-        # If the authenticated dashboard is not present, the credentials were
-        # rejected and the login form is shown again.
         if (
             soup.select_one(".pane-consumidor-panel") is None
             or soup.select_one(".estado-cons .val") is None
             or soup.select_one(".numero-socio .val") is None
         ):
-            raise FrutafeiaAuthError("Invalid username or password")
+            return None
 
         return FrutafeiaData(
             saldo=self._parse_saldo(soup),
