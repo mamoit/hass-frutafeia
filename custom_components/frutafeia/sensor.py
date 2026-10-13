@@ -75,7 +75,7 @@ class FrutafeiaDesperdicioSensor(FrutafeiaSensor):
     """Waste avoided sensor."""
 
     _attr_translation_key = "desperdicio"
-    _attr_native_unit_of_measurement = UnitOfMass.KILOGRAM
+    _attr_native_unit_of_measurement = UnitOfMass.KILOGRAMS
     _attr_state_class = SensorStateClass.TOTAL
 
     def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
