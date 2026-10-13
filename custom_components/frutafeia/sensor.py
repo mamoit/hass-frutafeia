@@ -11,9 +11,11 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import UnitOfMass
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
+from .const import DOMAIN
 from .coordinator import FrutafeiaCoordinator
 from .frutafeia_api import BasketItem
 
@@ -52,6 +54,12 @@ class FrutafeiaSensor(CoordinatorEntity[FrutafeiaCoordinator], SensorEntity):
         super().__init__(coordinator)
         self._key = key
         self._attr_unique_id = f"{prefix}{key}"
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, f"socio-{coordinator.data.socio}")},
+            name=f"Frutafeia {coordinator.data.socio}",
+            manufacturer="Frutafeia",
+            model="Account",
+        )
 
 
 class FrutafeiaSaldoSensor(FrutafeiaSensor):
