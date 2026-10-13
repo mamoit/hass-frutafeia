@@ -34,16 +34,32 @@
       }
     }
   },
-  "sensor": {
-    "name": {
-      "saldo": "Balance",
-      "desperdicio": "Waste avoided",
-      "socio": "Member number",
-      "tamanho": "Basket size",
-      "estado": "Status",
-      "delegacao": "Delegation",
-      "nao_recolhida": "Basket not collected",
-      "recolhida": "Basket collected"
+  "entity": {
+    "sensor": {
+      "saldo": {
+        "name": "Balance"
+      },
+      "desperdicio": {
+        "name": "Waste avoided"
+      },
+      "socio": {
+        "name": "Member number"
+      },
+      "tamanho": {
+        "name": "Basket size"
+      },
+      "estado": {
+        "name": "Status"
+      },
+      "delegacao": {
+        "name": "Delegation"
+      },
+      "nao_recolhida": {
+        "name": "Basket not collected"
+      },
+      "recolhida": {
+        "name": "Basket collected"
+      }
     }
   }
 }

@@ -34,16 +34,32 @@
       }
     }
   },
-  "sensor": {
-    "name": {
-      "saldo": "Saldo",
-      "desperdicio": "Desperdício evitado",
-      "socio": "Número de sócio",
-      "tamanho": "Tamanho",
-      "estado": "Estado",
-      "delegacao": "Delegação",
-      "nao_recolhida": "Cesta não recolhida",
-      "recolhida": "Cesta recolhida"
+  "entity": {
+    "sensor": {
+      "saldo": {
+        "name": "Saldo"
+      },
+      "desperdicio": {
+        "name": "Desperdício evitado"
+      },
+      "socio": {
+        "name": "Número de sócio"
+      },
+      "tamanho": {
+        "name": "Tamanho"
+      },
+      "estado": {
+        "name": "Estado"
+      },
+      "delegacao": {
+        "name": "Delegação"
+      },
+      "nao_recolhida": {
+        "name": "Cesta não recolhida"
+      },
+      "recolhida": {
+        "name": "Cesta recolhida"
+      }
     }
   }
 }
