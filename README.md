@@ -5,6 +5,9 @@ A [Home Assistant](https://www.home-assistant.io/) custom integration that reads
 member number, basket size, status, delegation, and the two basket lists
 (not yet collected / already collected).
 
+> **Disclaimer:** This project was implemented using the `qwen3.8:27b` model running
+> **locally**. No cloud AI service was used in its development.
+
 ## Installation
 
 ### Via HACS (recommended)
