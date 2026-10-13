@@ -29,6 +29,7 @@ from .const import (
     DOMAIN,
     MAX_SCAN_INTERVAL_HOURS,
     MIN_SCAN_INTERVAL_HOURS,
+    TIMEOUT,
 )
 from .frutafeia_api import FrutafeiaAuthError, FrutafeiaClient, FrutafeiaError
 
@@ -137,7 +138,7 @@ class FrutafeiaConfigFlow(ConfigFlow, domain=DOMAIN):
     async def _validate(self, user_input: dict[str, str | int]) -> tuple[dict | None, str | None]:
         """Validate the credentials by performing a real login."""
         try:
-            async with aiohttp.ClientSession() as session:
+            async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
                 client = FrutafeiaClient(
                     user_input[CONF_USERNAME],
                     user_input[CONF_PASSWORD],

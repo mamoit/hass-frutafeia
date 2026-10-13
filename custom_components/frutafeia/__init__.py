@@ -7,7 +7,7 @@ import aiohttp
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .const import CONF_PASSWORD, CONF_USERNAME, DOMAIN
+from .const import CONF_PASSWORD, CONF_USERNAME, DOMAIN, TIMEOUT
 from .coordinator import FrutafeiaCoordinator
 from .frutafeia_api import FrutafeiaClient
 
@@ -16,7 +16,7 @@ PLATFORMS = ["sensor"]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Frutafeia from a config entry."""
-    session = aiohttp.ClientSession()
+    session = aiohttp.ClientSession(timeout=TIMEOUT)
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = session
 
     client = FrutafeiaClient(

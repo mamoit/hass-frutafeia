@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -78,7 +79,7 @@ class FrutafeiaClient:
             async with self._session.get(LOGIN_URL) as resp:
                 resp.raise_for_status()
                 html = await resp.text()
-        except aiohttp.ClientError as err:
+        except (aiohttp.ClientError, asyncio.TimeoutError) as err:
             raise FrutafeiaError(f"Unable to reach Frutafeia: {err}") from err
 
         soup = BeautifulSoup(html, "html.parser")
@@ -110,7 +111,7 @@ class FrutafeiaClient:
                 resp.raise_for_status()
                 self._dashboard_url = str(resp.url)
                 html = await resp.text()
-        except aiohttp.ClientError as err:
+        except (aiohttp.ClientError, asyncio.TimeoutError) as err:
             raise FrutafeiaError(f"Unable to reach Frutafeia: {err}") from err
         return html
 
@@ -120,7 +121,7 @@ class FrutafeiaClient:
             async with self._session.get(self._dashboard_url) as resp:
                 resp.raise_for_status()
                 return await resp.text()
-        except aiohttp.ClientError as err:
+        except (aiohttp.ClientError, asyncio.TimeoutError) as err:
             raise FrutafeiaError(f"Unable to reach Frutafeia: {err}") from err
 
     def _parse_dashboard(self, html: str) -> FrutafeiaData | None:

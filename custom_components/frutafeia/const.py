@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
+import aiohttp
+
 DOMAIN = "frutafeia"
 VERSION = "1.0.0"
 
 BASE_URL = "https://frutafeia.pt"
 LOGIN_URL = f"{BASE_URL}/user"
+
+# Total timeout for all HTTP requests to Frutafeia.
+TIMEOUT = aiohttp.ClientTimeout(total=30)
 
 CONF_USERNAME = "username"
 CONF_PASSWORD = "password"
