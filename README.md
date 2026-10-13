@@ -28,9 +28,11 @@ Home Assistant.
 2. Search for **Frutafeia**.
 3. Enter your Frutafeia **email** and **password**.
 
-Your credentials are validated against the site and stored encrypted in your
-Home Assistant data store. They are never written to disk in plain text and are
-not committed to this repository.
+Your credentials are validated against the site and then stored in your Home
+Assistant config entry. They are only ever sent to Frutafeia and are never
+committed to this repository. Note that Home Assistant stores config entries in
+plain text on disk (in the `.storage` directory), so protect your Home
+Assistant installation directory accordingly.
 
 If your password changes later, Home Assistant will prompt you to re-enter it
 (re-authentication flow) — no need to delete and re-add the integration.
