@@ -114,6 +114,7 @@ class FrutafeiaSocioSensor(FrutafeiaSensor):
 
     _attr_translation_key = "socio"
     _attr_icon = "mdi:account"
+    _attr_entity_registry_visible_default = False
 
     def __init__(
         self, coordinator: FrutafeiaCoordinator, prefix: str, email: str
@@ -223,6 +224,7 @@ class FrutafeiaNaoRecolhidaSensor(FrutafeiaBasketSensor):
     """Basket items not yet collected."""
 
     _attr_icon = "mdi:basket"
+    _attr_entity_registry_visible_default = False
 
     def __init__(
         self, coordinator: FrutafeiaCoordinator, prefix: str, email: str
@@ -237,6 +239,7 @@ class FrutafeiaRecolhidaSensor(FrutafeiaBasketSensor):
     """Basket items already collected."""
 
     _attr_icon = "mdi:basket-check"
+    _attr_entity_registry_visible_default = False
 
     def __init__(
         self, coordinator: FrutafeiaCoordinator, prefix: str, email: str

@@ -58,6 +58,11 @@ list of `{product, producer}` objects — so you can use the count in automation
 (e.g. "notify me when the not-collected basket count increases") while still
 having the product details available.
 
+The **Member number**, **Basket not collected**, and **Basket collected**
+sensors are hidden from the UI by default (they are still available for
+automations and can be re-enabled via **Settings → Devices & services →
+Entities**).
+
 ## Scan interval
 
 The integration polls Frutafeia on a fixed interval, configured in **hours**
