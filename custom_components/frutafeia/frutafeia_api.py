@@ -98,7 +98,7 @@ class FrutafeiaClient:
         # If the authenticated dashboard is not present, the credentials were
         # rejected and the login form is shown again.
         if (
-            soup.select_one(".saldo") is None
+            soup.select_one(".pane-consumidor-panel") is None
             or soup.select_one(".estado-cons .val") is None
             or soup.select_one(".numero-socio .val") is None
         ):
@@ -125,10 +125,19 @@ class FrutafeiaClient:
     @staticmethod
     def _parse_saldo(soup: BeautifulSoup) -> float:
         """Return the account balance as a float."""
-        element = soup.select_one(".pane-consumidor-panel .row .val")
-        if element is None:
-            raise FrutafeiaError("Saldo field not found")
-        return float(element.text.strip().replace("\u20ac", "").replace(",", "."))
+        panel = soup.select_one(".pane-consumidor-panel")
+        if panel is None:
+            raise FrutafeiaError("Saldo panel not found")
+        for row in panel.select(".row"):
+            label = row.select_one(".label")
+            if label is not None and label.get_text(strip=True).lower() == "saldo":
+                element = row.select_one(".val")
+                if element is None:
+                    raise FrutafeiaError("Saldo field not found")
+                return float(
+                    element.text.strip().replace("\u20ac", "").replace(",", ".")
+                )
+        raise FrutafeiaError("Saldo field not found")
 
     @staticmethod
     def _parse_socio(soup: BeautifulSoup) -> int:
