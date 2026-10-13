@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate Frutafeia",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid username or password.",
+      "cannot_connect": "Unable to connect to Frutafeia.",
+      "unknown": "Unexpected error occurred."
+    },
+    "abort": {
+      "unique_id": "Frutafeia is already configured.",
+      "unique_id_mismatch": "The credentials belong to a different account."
+    }
+  }
+}

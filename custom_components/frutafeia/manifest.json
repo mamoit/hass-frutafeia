@@ -1,0 +1,12 @@
+{
+  "domain": "frutafeia",
+  "name": "Frutafeia",
+  "codeowners": ["@mamoit"],
+  "config_flow": true,
+  "documentation": "https://github.com/mamoit/hass-frutafeia",
+  "issue_tracker": "https://github.com/mamoit/hass-frutafeia/issues",
+  "iot_class": "cloud_polling",
+  "loggers": ["frutafeia"],
+  "requirements": ["beautifulsoup4==4.12.3"],
+  "version": "1.0.0"
+}
