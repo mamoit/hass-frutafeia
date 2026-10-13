@@ -164,9 +164,14 @@ class FrutafeiaClient:
                 element = row.select_one(".val")
                 if element is None:
                     raise FrutafeiaError("Saldo field not found")
-                return float(
-                    element.text.strip().replace("\u20ac", "").replace(",", ".")
-                )
+                try:
+                    return float(
+                        element.text.strip().replace("\u20ac", "").replace(",", ".")
+                    )
+                except ValueError as err:
+                    raise FrutafeiaError(
+                        f"Invalid saldo value: {element.text.strip()!r}"
+                    ) from err
         raise FrutafeiaError("Saldo field not found")
 
     @staticmethod
@@ -175,7 +180,12 @@ class FrutafeiaClient:
         element = soup.select_one(".numero-socio .val")
         if element is None:
             raise FrutafeiaError("Socio field not found")
-        return int(element.text.strip())
+        try:
+            return int(element.text.strip())
+        except ValueError as err:
+            raise FrutafeiaError(
+                f"Invalid socio value: {element.text.strip()!r}"
+            ) from err
 
     @staticmethod
     def _parse_basket(soup: BeautifulSoup, selector: str) -> list[BasketItem]:
