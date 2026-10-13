@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import re
 from dataclasses import dataclass, field
 
 import aiohttp
@@ -32,6 +33,7 @@ class FrutafeiaData:
     """Data returned from the Frutafeia dashboard."""
 
     saldo: float
+    desperdicio: float
     socio: int
     tamanho: str
     estado: str
@@ -136,6 +138,7 @@ class FrutafeiaClient:
 
         return FrutafeiaData(
             saldo=self._parse_saldo(soup),
+            desperdicio=self._parse_desperdicio(soup),
             socio=self._parse_socio(soup),
             tamanho=self._parse_value(soup, ".cesta .val"),
             estado=self._parse_value(soup, ".estado-cons .val"),
@@ -173,6 +176,17 @@ class FrutafeiaClient:
                         f"Invalid saldo value: {element.text.strip()!r}"
                     ) from err
         raise FrutafeiaError("Saldo field not found")
+
+    @staticmethod
+    def _parse_desperdicio(soup: BeautifulSoup) -> float:
+        """Return the waste avoided (in kg) as a float."""
+        element = soup.select_one(".desp .val")
+        if element is None:
+            raise FrutafeiaError("Desperdicio field not found")
+        match = re.search(r"\d+(?:[.,]\d+)?", element.text)
+        if match is None:
+            raise FrutafeiaError(f"Invalid desperdicio value: {element.text.strip()!r}")
+        return float(match.group(0).replace(",", "."))
 
     @staticmethod
     def _parse_socio(soup: BeautifulSoup) -> int:

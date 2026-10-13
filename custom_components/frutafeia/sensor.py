@@ -9,6 +9,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import UnitOfMass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -30,6 +31,7 @@ async def async_setup_entry(
     async_add_entities(
         [
             FrutafeiaSaldoSensor(coordinator, prefix),
+            FrutafeiaDesperdicioSensor(coordinator, prefix),
             FrutafeiaSocioSensor(coordinator, prefix),
             FrutafeiaTamanhoSensor(coordinator, prefix),
             FrutafeiaEstadoSensor(coordinator, prefix),
@@ -67,6 +69,23 @@ class FrutafeiaSaldoSensor(FrutafeiaSensor):
     def native_value(self) -> float:
         """Return the balance."""
         return self.coordinator.data.saldo
+
+
+class FrutafeiaDesperdicioSensor(FrutafeiaSensor):
+    """Waste avoided sensor."""
+
+    _attr_name = "Desperd\u00edcio evitado"
+    _attr_native_unit_of_measurement = UnitOfMass.KILOGRAM
+    _attr_state_class = SensorStateClass.TOTAL
+
+    def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
+        """Initialize the sensor."""
+        super().__init__(coordinator, prefix, "desperdicio")
+
+    @property
+    def native_value(self) -> float:
+        """Return the waste avoided in kg."""
+        return self.coordinator.data.desperdicio
 
 
 class FrutafeiaSocioSensor(FrutafeiaSensor):

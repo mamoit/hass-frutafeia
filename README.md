@@ -2,8 +2,8 @@
 
 A [Home Assistant](https://www.home-assistant.io/) custom integration that reads your
 [Frutafeia](https://frutafeia.pt) account and exposes it as sensors: account balance,
-member number, basket size, status, delegation, and the two basket lists
-(not yet collected / already collected).
+waste avoided, member number, basket size, status, delegation, and the two
+basket lists (not yet collected / already collected).
 
 > **Disclaimer:** This project was implemented using the `qwen3.8:27b` model running
 > **locally**. No cloud AI service was used in its development.
@@ -42,6 +42,7 @@ If your password changes later, Home Assistant will prompt you to re-enter it
 | Sensor | State | Notes |
 | --- | --- | --- |
 | Saldo | number | Account balance, in `€` |
+| Desperdício evitado | number | Waste avoided, in `kg` |
 | Número de sócio | number | Member number |
 | Tamanho | text | Basket size (e.g. "Cesta pequena") |
 | Estado | text | Account status (e.g. "Com entregas activas") |
