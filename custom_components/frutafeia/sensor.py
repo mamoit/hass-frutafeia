@@ -57,7 +57,7 @@ class FrutafeiaSensor(CoordinatorEntity[FrutafeiaCoordinator], SensorEntity):
 class FrutafeiaSaldoSensor(FrutafeiaSensor):
     """Account balance sensor."""
 
-    _attr_name = "Saldo"
+    _attr_translation_key = "saldo"
     _attr_native_unit_of_measurement = "\u20ac"
     _attr_state_class = SensorStateClass.MEASUREMENT
 
@@ -74,7 +74,7 @@ class FrutafeiaSaldoSensor(FrutafeiaSensor):
 class FrutafeiaDesperdicioSensor(FrutafeiaSensor):
     """Waste avoided sensor."""
 
-    _attr_name = "Desperd\u00edcio evitado"
+    _attr_translation_key = "desperdicio"
     _attr_native_unit_of_measurement = UnitOfMass.KILOGRAM
     _attr_state_class = SensorStateClass.TOTAL
 
@@ -91,7 +91,7 @@ class FrutafeiaDesperdicioSensor(FrutafeiaSensor):
 class FrutafeiaSocioSensor(FrutafeiaSensor):
     """Member number sensor."""
 
-    _attr_name = "N\u00famero de s\u00f3cio"
+    _attr_translation_key = "socio"
 
     def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
         """Initialize the sensor."""
@@ -106,7 +106,7 @@ class FrutafeiaSocioSensor(FrutafeiaSensor):
 class FrutafeiaTamanhoSensor(FrutafeiaSensor):
     """Basket size sensor."""
 
-    _attr_name = "Tamanho"
+    _attr_translation_key = "tamanho"
 
     def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
         """Initialize the sensor."""
@@ -121,7 +121,7 @@ class FrutafeiaTamanhoSensor(FrutafeiaSensor):
 class FrutafeiaEstadoSensor(FrutafeiaSensor):
     """Account status sensor."""
 
-    _attr_name = "Estado"
+    _attr_translation_key = "estado"
 
     def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
         """Initialize the sensor."""
@@ -136,7 +136,7 @@ class FrutafeiaEstadoSensor(FrutafeiaSensor):
 class FrutafeiaDelegacaoSensor(FrutafeiaSensor):
     """Delegation sensor."""
 
-    _attr_name = "Delega\u00e7\u00e3o"
+    _attr_translation_key = "delegacao"
 
     def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
         """Initialize the sensor."""
@@ -158,11 +158,11 @@ class FrutafeiaBasketSensor(FrutafeiaSensor):
         coordinator: FrutafeiaCoordinator,
         prefix: str,
         key: str,
-        name: str,
+        translation_key: str,
     ) -> None:
         """Initialize the basket sensor."""
         super().__init__(coordinator, prefix, key)
-        self._attr_name = name
+        self._attr_translation_key = translation_key
 
     @property
     def _items(self) -> list[BasketItem]:
@@ -190,7 +190,7 @@ class FrutafeiaNaoRecolhidaSensor(FrutafeiaBasketSensor):
 
     def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
         """Initialize the sensor."""
-        super().__init__(coordinator, prefix, "nao_recolhida", "Cesta n\u00e3o recolhida")
+        super().__init__(coordinator, prefix, "nao_recolhida", "nao_recolhida")
 
 
 class FrutafeiaRecolhidaSensor(FrutafeiaBasketSensor):
@@ -198,4 +198,4 @@ class FrutafeiaRecolhidaSensor(FrutafeiaBasketSensor):
 
     def __init__(self, coordinator: FrutafeiaCoordinator, prefix: str) -> None:
         """Initialize the sensor."""
-        super().__init__(coordinator, prefix, "recolhida", "Cesta recolhida")
+        super().__init__(coordinator, prefix, "recolhida", "recolhida")

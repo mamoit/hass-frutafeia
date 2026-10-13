@@ -33,5 +33,17 @@
         }
       }
     }
+  },
+  "sensor": {
+    "name": {
+      "saldo": "Saldo",
+      "desperdicio": "Desperdício evitado",
+      "socio": "Número de sócio",
+      "tamanho": "Tamanho",
+      "estado": "Estado",
+      "delegacao": "Delegação",
+      "nao_recolhida": "Cesta não recolhida",
+      "recolhida": "Cesta recolhida"
+    }
   }
 }

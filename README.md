@@ -39,21 +39,24 @@ If your password changes later, Home Assistant will prompt you to re-enter it
 
 ## Sensors
 
+> Sensor names are localized to your Home Assistant UI language (English and
+> Portuguese are supported). The table below shows the English names.
+
 | Sensor | State | Notes |
 | --- | --- | --- |
-| Saldo | number | Account balance, in `€` |
-| Desperdício evitado | number | Waste avoided, in `kg` |
-| Número de sócio | number | Member number |
-| Tamanho | text | Basket size (e.g. "Cesta pequena") |
-| Estado | text | Account status (e.g. "Com entregas activas") |
-| Delegação | text | Delegation |
-| Cesta não recolhida | number | Count of items not yet collected |
-| Cesta recolhida | number | Count of items already collected |
+| Balance | number | Account balance, in `€` |
+| Waste avoided | number | Waste avoided, in `kg` |
+| Member number | number | Member number |
+| Basket size | text | Basket size (e.g. "Cesta pequena") |
+| Status | text | Account status (e.g. "Com entregas activas") |
+| Delegation | text | Delegation |
+| Basket not collected | number | Count of items not yet collected |
+| Basket collected | number | Count of items already collected |
 
 The two basket sensors expose their full contents as the `items` attribute — a
 list of `{product, producer}` objects — so you can use the count in automations
-(e.g. "notify me when `cesta_nao_recolhida` increases") while still having the
-product details available.
+(e.g. "notify me when the not-collected basket count increases") while still
+having the product details available.
 
 ## Scan interval
 

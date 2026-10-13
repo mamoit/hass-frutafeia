@@ -33,5 +33,17 @@
         }
       }
     }
+  },
+  "sensor": {
+    "name": {
+      "saldo": "Balance",
+      "desperdicio": "Waste avoided",
+      "socio": "Member number",
+      "tamanho": "Basket size",
+      "estado": "Status",
+      "delegacao": "Delegation",
+      "nao_recolhida": "Basket not collected",
+      "recolhida": "Basket collected"
+    }
   }
 }
