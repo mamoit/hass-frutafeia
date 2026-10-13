@@ -49,6 +49,13 @@ list of `{product, producer}` objects — so you can use the count in automation
 (e.g. "notify me when `cesta_nao_recolhida` increases") while still having the
 product details available.
 
+## Scan interval
+
+The integration polls Frutafeia on a fixed interval, configured in **hours**
+(1–24, default **6h**). You can set it during setup and change it any time via
+**Settings → Devices & services → Frutafeia → Configure**. Changing it reloads
+the integration so the new interval takes effect immediately.
+
 ## Development
 
 Dependencies for local development:

@@ -10,12 +10,15 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN
+from .const import (
+    CONF_SCAN_INTERVAL_HOURS,
+    DEFAULT_SCAN_INTERVAL_HOURS,
+    DOMAIN,
+    MIN_SCAN_INTERVAL_HOURS,
+)
 from .frutafeia_api import FrutafeiaAuthError, FrutafeiaClient, FrutafeiaData, FrutafeiaError
 
 _LOGGER = logging.getLogger(__name__)
-
-SCAN_INTERVAL = timedelta(minutes=15)
 
 
 class FrutafeiaCoordinator(DataUpdateCoordinator[FrutafeiaData]):
@@ -30,12 +33,23 @@ class FrutafeiaCoordinator(DataUpdateCoordinator[FrutafeiaData]):
         client: FrutafeiaClient,
     ) -> None:
         """Initialize the coordinator."""
+        hours = max(
+            int(
+                entry.options.get(
+                    CONF_SCAN_INTERVAL_HOURS,
+                    entry.data.get(
+                        CONF_SCAN_INTERVAL_HOURS, DEFAULT_SCAN_INTERVAL_HOURS
+                    ),
+                )
+            ),
+            MIN_SCAN_INTERVAL_HOURS,
+        )
         super().__init__(
             hass,
             _LOGGER,
             name=DOMAIN,
             config_entry=entry,
-            update_interval=SCAN_INTERVAL,
+            update_interval=timedelta(hours=hours),
         )
         self.client = client
 

@@ -23,5 +23,15 @@
       "unique_id": "Frutafeia is already configured.",
       "unique_id_mismatch": "The credentials belong to a different account."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Frutafeia options",
+        "data": {
+          "scan_interval_hours": "Scan interval (hours)"
+        }
+      }
+    }
   }
 }
